@@ -20,7 +20,7 @@ type CookieOptions = {
 export const baseCookies : CookieOptions= {
     path: '/',
     httpOnly: true,
-    secure: false, //isProduction,
+    secure: isProduction, //isProduction,
     sameSite: sameSiteType//sameSiteType,
 }
 
