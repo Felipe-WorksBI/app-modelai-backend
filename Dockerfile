@@ -39,5 +39,4 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3333
-
 CMD ["npm", "start"]
