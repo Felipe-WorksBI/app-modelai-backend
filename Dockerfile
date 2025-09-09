@@ -4,7 +4,7 @@ WORKDIR /app
 # package*.json ./
 COPY . ./ 
 
-RUN npm ci --only=production
+RUN npm ci
 
 EXPOSE 3333
 
