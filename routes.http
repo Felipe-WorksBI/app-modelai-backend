@@ -4,9 +4,9 @@ POST http://localhost:3333/api/v1/users
 Content-Type: application/json
 
 {
-    "name": "Felipe Andrade",
-    "email": "felipe@admin.com",
-    "password": "felipeadmin123",
+    "name": "Diego",
+    "email": "diego@admin.com",
+    "password": "diegoadmin123",
     "role": "admin",
     "status": "active"
 }

@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { projects } from "../models/schema.js";
 import { checkRequestJWT } from "./hooks/check-request-jwt.js";
 import { bodyScenario, responseScenario, responseScenarioArray } from "../types/input.types.js";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 
 
 export const projectRoutes: FastifyPluginAsyncZod = async (server) => {
@@ -100,8 +100,8 @@ export const projectRoutes: FastifyPluginAsyncZod = async (server) => {
         const user = request.user;
         const params = request.params
         const prjId = params.id;
-        console.log(params);
-        console.log(prjId)
+        // console.log(params);
+        // console.log(prjId)
         // const { prjId } = request.params;
         const { prjName } = request.body;
 
@@ -123,7 +123,7 @@ export const projectRoutes: FastifyPluginAsyncZod = async (server) => {
                     updatedBy: user.sub,
                     updatedAt: sql`NOW()`,
                 })
-                .where(eq(projects.prjId, prjId))
+                .where(and(eq(projects.prjId, prjId), eq(projects.createdBy, user.sub)))
                 .returning()
 
             if(result.length === 0){

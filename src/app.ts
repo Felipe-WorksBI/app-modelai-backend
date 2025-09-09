@@ -23,6 +23,7 @@ import { getConstructionCosts } from "./routes/get-construction-costs.js";
 import { createConstructionCosts } from "./routes/create-construction-costs.js";
 import { createAdmExpenses } from "./routes/create-adm-expenses.js";
 import { getAdmExpensesByScenario } from "./routes/get-adm-expenses.js";
+import { deleteScenarioById } from "./routes/delete-scenario-by-id.js";
 // import {fastifySwaggerUi} from "@fastify/swagger-ui";
 
 // export async function App(): Promise<FastifyInstance>{
@@ -98,6 +99,7 @@ app
     .register(createConstructionCosts, { prefix: "/api/v1" })
     .register(createAdmExpenses, { prefix: "/api/v1" })
     .register(getAdmExpensesByScenario, { prefix: "/api/v1" })
+    .register(deleteScenarioById, { prefix: "/api/v1" })
 
 export {app};
 

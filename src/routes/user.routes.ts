@@ -52,8 +52,8 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
   //Route to create a new user
   app.post("/users", {
     preHandler: [
-      // checkRequestJWT,
-      // checkUserRole('admin')
+      checkRequestJWT,
+      checkUserRole('admin')
     ],
     schema: {
       tags:['users'],
