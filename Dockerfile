@@ -6,7 +6,10 @@ COPY . ./
 
 RUN npm ci
 
+# compilar TS → JS
+RUN npm run build
+
 EXPOSE 3333
 
-CMD ["node","src/server.ts"]
+CMD ["npm","start"]
 
