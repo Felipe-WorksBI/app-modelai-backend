@@ -64,20 +64,33 @@ export const projectRoutes: FastifyPluginAsyncZod = async (server) => {
         if(!user){
             return reply.status(400).send({ message: 'Erro ao buscar os cenário: Usuário não autenticado' });
         }
+        let result;
         // Implement login logic here
-        const result = await db
-            .select({
-                prjId: projects.prjId,
-                prjName: projects.prjName,
-                createdBy: projects.createdBy,
-                updatedBy: projects.updatedBy,
-                createdAt: projects.createdAt,
-                updatedAt: projects.updatedAt,
-            })
-            .from(projects)
-            .where(and(eq(projects.createdBy, user.sub)));
+        if(user.sub === 'admin'){
+            result = await db
+                .select({
+                    prjId: projects.prjId,
+                    prjName: projects.prjName,
+                    createdBy: projects.createdBy,
+                    updatedBy: projects.updatedBy,
+                    createdAt: projects.createdAt,
+                    updatedAt: projects.updatedAt,
+                })
+                .from(projects)            
+        }else{
+            result = await db
+                .select({
+                    prjId: projects.prjId,
+                    prjName: projects.prjName,
+                    createdBy: projects.createdBy,
+                    updatedBy: projects.updatedBy,
+                    createdAt: projects.createdAt,
+                    updatedAt: projects.updatedAt,
+                })
+                .from(projects)
+                .where(and(eq(projects.createdBy, user.sub)));
+        }
         
-            
         // if(result.length === 0){
         //     return reply.status(400).send({ message: 'Erro ao criar o cenário' });
         // }
