@@ -1,3 +1,19 @@
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . ./
+
+# Compilar TS → JS
+RUN npm run build
+
+EXPOSE 3333
+CMD ["npm", "start"]
+
+
 # FROM node:22-alpine AS builder
 
 # WORKDIR /app
@@ -13,30 +29,30 @@
 
 # CMD ["npm","start"]
 
-FROM node:22-alpine AS builder
+# FROM node:22-alpine AS builder
 
-WORKDIR /app
+# WORKDIR /app
 
-# Copiar só os manifests primeiro (cache das deps)
-COPY package*.json ./
+# # Copiar só os manifests primeiro (cache das deps)
+# COPY package*.json ./
 
-RUN npm ci
+# RUN npm ci
 
-# Copiar o resto do código
-COPY . ./
+# # Copiar o resto do código
+# COPY . ./
 
-# Compilar TS → JS
-RUN npm run build
+# # Compilar TS → JS
+# RUN npm run build
 
-# -------- imagem final --------
-FROM node:22-alpine AS runner
+# # -------- imagem final --------
+# FROM node:22-alpine AS runner
 
-WORKDIR /app
+# WORKDIR /app
 
-# Copiar só o necessário da build
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
+# # Copiar só o necessário da build
+# COPY --from=builder /app/node_modules ./node_modules
+# COPY --from=builder /app/package*.json ./
+# COPY --from=builder /app/dist ./dist
 
-EXPOSE 3333
-CMD ["npm", "start"]
+# EXPOSE 3333
+# CMD ["npm", "start"]
