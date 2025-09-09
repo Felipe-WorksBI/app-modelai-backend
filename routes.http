@@ -1,0 +1,38 @@
+###
+#Create new user
+POST http://localhost:3333/api/v1/users
+Content-Type: application/json
+
+{
+    "name": "Felipe Andrade",
+    "email": "felipe@admin.com",
+    "password": "felipeadmin123",
+    "role": "admin",
+    "status": "active"
+}
+###
+
+GET http://localhost:3333/api/v1/users
+
+###
+
+POST http://localhost:3333/api/v1/scenarios
+Content-Type: application/json
+
+{
+    "prjName": "Sistema Kaizen",
+    "createdBy": "566b7e42-8fd7-444b-b6ce-960467b0548b",
+    "updatedBy": "566b7e42-8fd7-444b-b6ce-960467b0548b"
+}
+
+###
+POST http://localhost:3333/api/v1/sessions
+Content-Type: application/json
+
+{
+    "email": "felipe@admin.com",
+    "password": "felipeadmin123"
+}
+
+###
+POST http://localhost:3333/api/v1/sessions/logout

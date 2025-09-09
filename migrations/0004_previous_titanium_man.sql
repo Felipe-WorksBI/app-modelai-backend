@@ -1,0 +1,1 @@
+ALTER TABLE "administrative_expenses" ADD COLUMN "meses_ativo" integer DEFAULT 0 NOT NULL;

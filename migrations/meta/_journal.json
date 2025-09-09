@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1756164467685,
+      "tag": "0000_sleepy_blur",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1756558973982,
+      "tag": "0001_aromatic_bushwacker",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1756559330280,
+      "tag": "0002_previous_robin_chapel",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1756660181060,
+      "tag": "0003_past_captain_midlands",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1756660311948,
+      "tag": "0004_previous_titanium_man",
+      "breakpoints": true
+    }
+  ]
+}

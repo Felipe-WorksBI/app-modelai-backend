@@ -1,0 +1,1 @@
+ALTER TABLE "administrative_expenses" ADD COLUMN "data_inicio_custo" date DEFAULT now() NOT NULL;
