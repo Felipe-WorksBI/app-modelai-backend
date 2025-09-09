@@ -1,13 +1,12 @@
-import { FastifyInstance } from "fastify";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { createUserSchema } from "../validators/user.schema.js";
-import { createUser, getAllUsers, getUserById } from "../controllers/user.controller.ts";
+import { createUser, getUserById } from "../controllers/user.controller.js";
 import z from "zod";
-import { TParams } from "../types/zod.types.ts";
-import { checkRequestJWT } from "./hooks/check-request-jwt.ts";
-import { checkUserRole } from "./hooks/check-user-role.ts";
-import { db } from "../database/client.ts";
-import { users } from "../models/schema.ts";
+import { TParams } from "../types/zod.types.js";
+import { checkRequestJWT } from "./hooks/check-request-jwt.js";
+import { checkUserRole } from "./hooks/check-user-role.js";
+import { db } from "../database/client.js";
+import { users } from "../models/schema.js";
 
 export const userRoutes: FastifyPluginAsyncZod = async (app) => {
   //Route to get all users

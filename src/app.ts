@@ -10,19 +10,19 @@ import cookie from '@fastify/cookie';
 // import fJWT from '@fastify/jwt';
 
 // import fCookie from '@fastify/cookie'
-import { userRoutes } from "./routes/user.routes.ts";
+import { userRoutes } from "./routes/user.routes.js";
 import { fastifySwagger } from "@fastify/swagger";
 import scalarAPIReference from '@scalar/fastify-api-reference';
-import { authRoutes } from "./routes/auth.routes.ts";
-import { projectRoutes } from "./routes/project.routes.ts";
-import { prjDetailsRoutes } from "./routes/project-details.routes.ts";
-import { getProperty } from "./routes/get-all-properties.ts";
-import { createProperty } from "./routes/create-property.ts";
-import { deletePropertyById } from "./routes/delete-property-by-id.ts";
-import { getConstructionCosts } from "./routes/get-construction-costs.ts";
-import { createConstructionCosts } from "./routes/create-construction-costs.ts";
-import { createAdmExpenses } from "./routes/create-adm-expenses.ts";
-import { getAdmExpensesByScenario } from "./routes/get-adm-expenses.ts";
+import { authRoutes } from "./routes/auth.routes.js";
+import { projectRoutes } from "./routes/project.routes.js";
+import { prjDetailsRoutes } from "./routes/project-details.routes.js";
+import { getProperty } from "./routes/get-all-properties.js";
+import { createProperty } from "./routes/create-property.js";
+import { deletePropertyById } from "./routes/delete-property-by-id.js";
+import { getConstructionCosts } from "./routes/get-construction-costs.js";
+import { createConstructionCosts } from "./routes/create-construction-costs.js";
+import { createAdmExpenses } from "./routes/create-adm-expenses.js";
+import { getAdmExpensesByScenario } from "./routes/get-adm-expenses.js";
 // import {fastifySwaggerUi} from "@fastify/swagger-ui";
 
 // export async function App(): Promise<FastifyInstance>{

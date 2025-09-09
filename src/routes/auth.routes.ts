@@ -1,11 +1,11 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import { db } from '../database/client.ts';
-import {z} from 'zod';
-import { users } from "../models/schema.ts";
+import { db } from '../database/client.js';
+import { z } from 'zod';
+import { users } from "../models/schema.js";
 import { eq } from "drizzle-orm";
 import bcrypt from 'bcryptjs';
-import { baseCookies, clearCookies, generateCookies, generateTokens, isProduction, sameSiteType } from "../controllers/auth.controller.ts";
-import { checkRefreshToken, checkRequestJWT } from "./hooks/check-request-jwt.ts";
+import { baseCookies, clearCookies, generateTokens } from "../controllers/auth.controller.js";
+import { checkRefreshToken, checkRequestJWT } from "./hooks/check-request-jwt.js";
 
 
 export const authRoutes: FastifyPluginAsyncZod = async (server) => {

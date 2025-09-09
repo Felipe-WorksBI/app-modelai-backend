@@ -1,4 +1,4 @@
-import { db } from './client.ts'
+import { db } from './client.js'
 import { sql } from 'drizzle-orm'
 
 await db.execute(sql`DROP SCHEMA public CASCADE`);

@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import bcrypt from 'bcryptjs';
-import { CreateUserInput } from '../validators/user.schema.ts';
-import { db } from '../database/client.ts';
-import { users } from '../models/schema.ts';
+import { CreateUserInput } from '../validators/user.schema.js';
+import { db } from '../database/client.js';
+import { users } from '../models/schema.js';
 import { eq } from 'drizzle-orm';
-import { getAuthenticatedUser } from '../utils/get-authenticated-user.ts';
+import { getAuthenticatedUser } from '../utils/get-authenticated-user.js';
 
 const hashPassword = async (password: string) => {
   const salt = await bcrypt.genSalt(10);

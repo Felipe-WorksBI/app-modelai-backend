@@ -1,10 +1,8 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import { db } from '../database/client.ts';
+import { db } from '../database/client.js';
 import { z } from 'zod';
-import { projects, properties } from "../models/schema.ts";
-import { checkRequestJWT } from "./hooks/check-request-jwt.ts";
-import { bodyScenario, responseScenario, responseScenarioArray } from "../types/input.types.ts";
-import { eq, sql } from "drizzle-orm";
+import { properties } from "../models/schema.js";
+import { checkRequestJWT } from "./hooks/check-request-jwt.js";
 
 //Criar um novo empreendimento
 export const createProperty: FastifyPluginAsyncZod = async (server) => {

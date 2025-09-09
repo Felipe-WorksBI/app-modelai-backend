@@ -1,6 +1,6 @@
 import type { FastifyRequest, FastifyReply} from 'fastify';
 import jwt from 'jsonwebtoken';
-import { clearCookies, TokenPayload } from '../../controllers/auth.controller.ts';
+import { clearCookies, TokenPayload } from '../../controllers/auth.controller.js';
 
 export async function checkRequestJWT(request: FastifyRequest, reply: FastifyReply) {
     // const token = request.headers.authorization;

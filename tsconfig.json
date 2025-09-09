@@ -6,13 +6,18 @@
   "compilerOptions": {
     "lib": ["es2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
     "module": "nodenext",
+    "moduleResolution": "node16",
     "target": "es2022",
-    "allowImportingTsExtensions":true,
-    "noEmit": true,
+    // "allowImportingTsExtensions":true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16"
+
+    "outDir": "./dist",        // 👈 saída do build
+    "rootDir": "./src",        // 👈 código fonte
+    "noEmit": false            // 👈 agora gera os arquivos JS
   },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
   "extends": "@tsconfig/node22/tsconfig.json"
 }

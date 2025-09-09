@@ -1,8 +1,8 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import { db } from '../database/client.ts';
+import { db } from '../database/client.js';
 import { z } from 'zod';
-import { administrativeExpenses, projectExpenses, properties } from "../models/schema.ts";
-import { checkRequestJWT } from "./hooks/check-request-jwt.ts";
+import { administrativeExpenses, projectExpenses, properties } from "../models/schema.js";
+import { checkRequestJWT } from "./hooks/check-request-jwt.js";
 
 //Criar um novo empreendimento
 export const createAdmExpenses: FastifyPluginAsyncZod = async (server) => {
