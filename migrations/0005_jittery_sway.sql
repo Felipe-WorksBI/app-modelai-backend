@@ -1,0 +1,1 @@
+ALTER TABLE "project_details" ALTER COLUMN "periodicidade_reforco" SET DEFAULT 'anual';

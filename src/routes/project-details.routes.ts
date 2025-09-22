@@ -103,7 +103,7 @@ export const prjDetailsRoutes: FastifyPluginAsyncZod = async (server) => {
                 qtdParcelas: z.number(),
                 pctReforco: z.number(),
                 qtdBaloes: z.number(),
-                periodicidadeReforco: z.enum(['trimestral', 'semestral', 'anual']),
+                // periodicidadeReforco: z.enum(['trimestral', 'semestral', 'anual']),
                 pctJuros: z.number(),
             }),
             response:{
@@ -196,7 +196,7 @@ export const prjDetailsRoutes: FastifyPluginAsyncZod = async (server) => {
                 qtdParcelas: z.number(),
                 pctReforco: z.number(),
                 qtdBaloes: z.number(),
-                periodicidadeReforco: z.enum(['trimestral', 'semestral', 'anual']),
+                // periodicidadeReforco: z.enum(['trimestral', 'semestral', 'anual']),
                 pctJuros: z.number(),
             }),
             response:{

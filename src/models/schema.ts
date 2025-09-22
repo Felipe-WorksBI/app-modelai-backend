@@ -65,7 +65,7 @@ export const projectDetails = pgTable('project_details',{
   pctReforco: numeric('pct_reforco',{precision:5,scale:2,mode:'number'}).notNull().default(0), // % Recebido por Reforço
   qtdParcelas: integer('qtd_parcelas').notNull(), //Quantidade de Parcelas
   qtdBaloes: integer('qtd_baloes').notNull(), //Quantidade de Reforços
-  periodicidadeReforco: reinforcementFrequency('periodicidade_reforco').notNull(), //Periodicidade do Reforço
+  periodicidadeReforco: reinforcementFrequency('periodicidade_reforco').notNull().default('anual'), //Periodicidade do Reforço
   pctJuros: numeric('pct_juros',{precision:5,scale:2,mode:'number'}).notNull().default(0), // Juros (a.m %)
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),

@@ -36,6 +36,13 @@
       "when": 1756660311948,
       "tag": "0004_previous_titanium_man",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1758482943439,
+      "tag": "0005_jittery_sway",
+      "breakpoints": true
     }
   ]
 }

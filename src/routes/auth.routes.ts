@@ -28,12 +28,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
                     updatedAt: z.date(),
                 })
                 }).describe('User retrieved successfully'),
-                // 200: z.object({
-                //     token: z.object({
-                //         accessToken: z.string(),
-                //         refreshToken: z.string(),
-                //     }),
-                // }),
+
                 400: z.object({ message: z.string() })
             }
         },
@@ -41,7 +36,6 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
         const { email, password } = request.body;
 
         // Implement login logic here
-
         const result = await db
             .select()
             .from(users)
