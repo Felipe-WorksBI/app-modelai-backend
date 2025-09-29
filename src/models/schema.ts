@@ -23,6 +23,7 @@ export const users = pgTable('users', {
   updatedAt: timestamp('updated_at',{withTimezone:true}).defaultNow().notNull(),
   status: text('status').notNull().default('active'),
   role: text('role').notNull().default('user'),
+  companyName: text('company_name'),
 })
 
 //Scenarios
@@ -54,18 +55,18 @@ export const projectDetails = pgTable('project_details',{
   prjId: uuid('prj_id').notNull().references(() => projects.prjId),
   empId: uuid('emp_id').notNull().references(() => properties.empId),
   prjFase: text('prj_fase').notNull().default('Fase 1'),
-  areaVendida: numeric('area_vendida',{precision:10,scale:2,mode:'number'}).notNull(), //Área Vendida (m²)
+  areaVendida: numeric('area_vendida',{precision:10,scale:2,mode:'number'}).default(0), //Área Vendida (m²)
   areaPermuta: numeric('area_permuta',{precision:10,scale:2,mode:'number'}).notNull(), //Área vendável líquida de permuta (m²)
   valorM2: numeric('valor_m2',{precision:10,scale:2,mode:'number'}).notNull(), // Valor estimado do m² (R$) em CENTAVOS
   dataInicio: date('data_inicio', {mode:'string'}).defaultNow().notNull(), //Mês de início das vendas
   prazoVendas:  numeric('prazo_vendas',{precision:5,scale:2,mode:'number'}).notNull(), //Prazo de vendas (meses)
   pctValorizacao: numeric('pct_valorizacao',{precision:5,scale:2,mode:'number'}).notNull().default(0), //Valorização mensal (%)
-  pctUnidadesVista: numeric('pct_unidades_vista',{precision:5,scale:2,mode:'number'}).notNull().default(0), //% de unidades à vista
+  pctUnidadesVista: numeric('pct_unidades_vista',{precision:5,scale:2,mode:'number'}).default(0), //% de unidades à vista
   pctEntrada: numeric('pct_entrada',{precision:5,scale:2,mode:'number'}).notNull().default(0), // Entrada (%)
   pctReforco: numeric('pct_reforco',{precision:5,scale:2,mode:'number'}).notNull().default(0), // % Recebido por Reforço
   qtdParcelas: integer('qtd_parcelas').notNull(), //Quantidade de Parcelas
   qtdBaloes: integer('qtd_baloes').notNull(), //Quantidade de Reforços
-  periodicidadeReforco: reinforcementFrequency('periodicidade_reforco').notNull().default('anual'), //Periodicidade do Reforço
+  periodicidadeReforco: reinforcementFrequency('periodicidade_reforco').default('anual'), //Periodicidade do Reforço
   pctJuros: numeric('pct_juros',{precision:5,scale:2,mode:'number'}).notNull().default(0), // Juros (a.m %)
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),

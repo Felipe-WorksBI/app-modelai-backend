@@ -24,6 +24,8 @@ import { createConstructionCosts } from "./routes/create-construction-costs.js";
 import { createAdmExpenses } from "./routes/create-adm-expenses.js";
 import { getAdmExpensesByScenario } from "./routes/get-adm-expenses.js";
 import { deleteScenarioById } from "./routes/delete-scenario-by-id.js";
+import { editUserByID } from "./routes/edit-user-by-id.js";
+import { deleteUserByID } from "./routes/delete-user-by-id.js";
 // import {fastifySwaggerUi} from "@fastify/swagger-ui";
 
 // export async function App(): Promise<FastifyInstance>{
@@ -100,6 +102,8 @@ app
     .register(createAdmExpenses, { prefix: "/api/v1" })
     .register(getAdmExpensesByScenario, { prefix: "/api/v1" })
     .register(deleteScenarioById, { prefix: "/api/v1" })
+    .register(editUserByID, { prefix: "/api/v1" })
+    .register(deleteUserByID, { prefix: "/api/v1" })
 
 export {app};
 

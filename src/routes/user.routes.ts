@@ -7,6 +7,7 @@ import { checkRequestJWT } from "./hooks/check-request-jwt.js";
 import { checkUserRole } from "./hooks/check-user-role.js";
 import { db } from "../database/client.js";
 import { users } from "../models/schema.js";
+import { desc } from "drizzle-orm";
 
 export const userRoutes: FastifyPluginAsyncZod = async (app) => {
   //Route to get all users
@@ -22,10 +23,11 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
         200: z.object({
           users:z.array(z.object({
           id: z.uuid(),
-          name: z.string().min(2).max(100),
+          name: z.string(),
           email: z.email(),
           status: z.string(),
           role: z.string(),
+          companyName: z.string().nullable(),
           createdAt: z.date(),
           updatedAt: z.date(),
         }))
@@ -41,10 +43,12 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
               email: users.email,
               status: users.status,
               role: users.role,
+              companyName: users.companyName || 'N/A',
               createdAt: users.createdAt,
               updatedAt: users.updatedAt,
           })
-          .from(users);
+          .from(users)
+          .orderBy(desc(users.updatedAt));
           
       return reply.status(200).send({ users: result });
   });
@@ -59,9 +63,19 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
       tags:['users'],
       summary:'Create a user',
       description: 'Create a new user with name, email, password, role, and status.',
-      body: createUserSchema,
+      body: z.object({
+        name: z.string(),
+        email: z.email(),
+        password: z.string().min(6),
+        role: z.enum(['user', 'admin']),
+        companyName: z.string(),
+        status: z.enum(['active', 'inactive'])
+      }),
       response:{
-        201: z.object({createdUser: z.uuid()}).describe('User created successfully'),
+        201: z.object({
+          createdUser: z.uuid()
+
+        }).describe('User created successfully'),
         400: z.object({ error: z.string() }).describe('Error on creating user')
       }
     }
@@ -92,5 +106,5 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
       }
     }
   }, getUserById);
-
+  
 }
