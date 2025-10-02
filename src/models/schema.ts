@@ -128,7 +128,7 @@ export const realEstatePayments = pgTable('real_state_payments',{
 })
 
 export const admExpTypes = pgEnum('tipo_despesa', ['Marketing', 'Comissão de vendas','Taxa de Gestão', 'Impostos'])
-export const calculatedBase = pgEnum('base_calulo', ['% do VGV', '% da Receita Líquida Prevista','% sobre Cada Venda', '% sobre Custo da Obra','% sobre Resultado'])
+// export const calculatedBase = pgEnum('base_calulo', ['% Sobre VGV', '% Sobre Entrada de Caixa','% sobre Cada Venda', '% sobre Custo da Obra','% sobre Resultado'])
 export const administrativeExpenses = pgTable('administrative_expenses',{
   id: serial('id').primaryKey(),
   prjId: uuid('prj_id').notNull().references(() => projects.prjId),
@@ -137,7 +137,7 @@ export const administrativeExpenses = pgTable('administrative_expenses',{
   mesesAtivo: integer('meses_ativo').notNull().default(0), //Meses ativos
   tipoDespesa: admExpTypes('tipo_despesa').notNull(),
   pctValor: numeric('pct_valor',{precision:5,scale:2,mode:'number'}).notNull(),
-  baseCalculo: calculatedBase('base_calulo').notNull(),
+  baseCalculo: text('base_calulo').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   createdBy: uuid('created_by').notNull().references(() => users.id),

@@ -66,7 +66,8 @@ export const projectRoutes: FastifyPluginAsyncZod = async (server) => {
         }
         let result;
         // Implement login logic here
-        if(user.sub === 'admin'){
+        // console.log('User: ')
+        if(user.role === 'keyuser'){
             result = await db
                 .select({
                     prjId: projects.prjId,

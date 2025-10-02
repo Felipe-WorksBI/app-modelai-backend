@@ -19,7 +19,7 @@ export const createAdmExpenses: FastifyPluginAsyncZod = async (server) => {
                 dataInicioCusto: z.string(),
                 mesesAtivo:z.number(),
                 tipoDespesa: z.enum(['Marketing', 'Comissão de vendas','Taxa de Gestão', 'Impostos']),
-                baseCalculo: z.enum(['% do VGV', '% da Receita Líquida Prevista','% sobre Cada Venda', '% sobre Custo da Obra','% sobre Resultado']),
+                baseCalculo: z.string(),
                 pctValor: z.number()
             }),
             response:{
