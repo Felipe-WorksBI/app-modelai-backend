@@ -28,6 +28,8 @@ import { editUserByID } from "./routes/edit-user-by-id.js";
 import { deleteUserByID } from "./routes/delete-user-by-id.js";
 import { editAdmExpenses } from "./routes/edit-adm-expenses.js";
 import { deleteAdmExpensesById } from "./routes/delete-adm-expenses.js";
+import { editConstructionCostsById } from "./routes/edit-construction-costs.js";
+import { deleteConstructionCostsById } from "./routes/delete-construction-costs.js";
 // import {fastifySwaggerUi} from "@fastify/swagger-ui";
 
 // export async function App(): Promise<FastifyInstance>{
@@ -108,6 +110,8 @@ app
     .register(deleteUserByID, { prefix: "/api/v1" })
     .register(editAdmExpenses, { prefix: "/api/v1" })
     .register(deleteAdmExpensesById, { prefix: "/api/v1" })
+    .register(editConstructionCostsById, { prefix: "/api/v1" })
+    .register(deleteConstructionCostsById, { prefix: "/api/v1" })
 
 export {app};
 

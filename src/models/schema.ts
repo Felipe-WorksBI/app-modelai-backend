@@ -55,9 +55,9 @@ export const projectDetails = pgTable('project_details',{
   prjId: uuid('prj_id').notNull().references(() => projects.prjId),
   empId: uuid('emp_id').notNull().references(() => properties.empId),
   prjFase: text('prj_fase').notNull().default('Fase 1'),
-  areaVendida: numeric('area_vendida',{precision:10,scale:2,mode:'number'}).default(0), //Área Vendida (m²)
-  areaPermuta: numeric('area_permuta',{precision:10,scale:2,mode:'number'}).notNull(), //Área vendável líquida de permuta (m²)
-  valorM2: numeric('valor_m2',{precision:10,scale:2,mode:'number'}).notNull(), // Valor estimado do m² (R$) em CENTAVOS
+  areaVendida: numeric('area_vendida',{mode:'number'}).default(0), //Área Vendida (m²) //{precision:10,scale:2,mode:'number'}
+  areaPermuta: numeric('area_permuta',{mode:'number'}).notNull(), //Área vendável líquida de permuta (m²)
+  valorM2: numeric('valor_m2',{mode:'number'}).notNull(), // Valor estimado do m² (R$) em CENTAVOS
   dataInicio: date('data_inicio', {mode:'string'}).defaultNow().notNull(), //Mês de início das vendas
   prazoVendas:  numeric('prazo_vendas',{precision:5,scale:2,mode:'number'}).notNull(), //Prazo de vendas (meses)
   pctValorizacao: numeric('pct_valorizacao',{precision:5,scale:2,mode:'number'}).notNull().default(0), //Valorização mensal (%)
@@ -83,9 +83,9 @@ export const projectExpenses = pgTable('project_expenses',{
   empId: uuid('emp_id').notNull().references(() => properties.empId),
   dataInicioCusto: date('data_inicio_custo', {mode:'string'}).defaultNow().notNull(), //Mês do Primeiro Desembolso
   tempoObra: integer('tempo_obra').notNull(), // Tempo de Obra (meses)
-  custoM2: numeric('custo_m2',{precision:10,scale:2,mode:'number'}).default(0), // Custo por m² (R$) em CENTAVOS
-  custoTotalProjetado: numeric('custo_total_projetado',{precision:10,scale:2,mode:'number'}).notNull(), // Custo Total Projetado (R$) em CENTAVOS
-  areaConstruidaTotal: numeric('area_construida_total',{precision:10,scale:2,mode:'number'}).notNull(), // Área Construída Total (m²)
+  custoM2: numeric('custo_m2',{mode:'number'}).default(0), // Custo por m² (R$) em CENTAVOS
+  custoTotalProjetado: numeric('custo_total_projetado',{mode:'number'}).notNull(), // Custo Total Projetado (R$) em CENTAVOS
+  areaConstruidaTotal: numeric('area_construida_total',{mode:'number'}).notNull(), // Área Construída Total (m²)
   reajusteAnual: numeric('reajuste_anual',{precision:5,scale:2,mode:'number'}).default(0), // Reajuste Anual (%)
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
@@ -102,7 +102,7 @@ export const realEstateDetails = pgTable('real_estate_details',{
   empId: uuid('emp_id').notNull().references(() => properties.empId),
   tipoRealEstate: realEstateTypes('tipo_real_estate').notNull(), // Tipo de Custo
   dataCompra: date('data_compra', {mode:'string'}).defaultNow().notNull(), //Data de Compra do Terreno
-  valor: numeric('valor',{precision:10,scale:2,mode:'number'}).notNull(), // Valor (R$) em CENTAVOS
+  valor: numeric('valor',{mode:'number'}).notNull(), // Valor (R$) em CENTAVOS
   tipoValor: classificationTypes('tipo_valor').notNull(), // Tempo de Obra (meses)
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
@@ -120,7 +120,7 @@ export const realEstatePayments = pgTable('real_state_payments',{
   dataVencimento: date('data_vencimento', {mode:'string'}).defaultNow().notNull(), //Data de Vencimento
   tipoParcela: InstallmentsClassification('tipo_parcela').notNull(), // Tempo de Obra (meses)
   numeroParcela: integer('numero_parcela').notNull().default(1), // Número da Parcela
-  valorParcela: numeric('valor_parcela',{precision:10,scale:2,mode:'number'}).notNull(), // Valor da Parcela (R$) em CENTAVOS
+  valorParcela: numeric('valor_parcela',{mode:'number'}).notNull(), // Valor da Parcela (R$) em CENTAVOS
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   createdBy: uuid('created_by').notNull().references(() => users.id),
@@ -152,7 +152,7 @@ export const propertyAcquisitions = pgTable('property_acquisitions',{
   nomeEmpresa: text('nome_empresa').notNull(), // Nome do Player/Instituição
   dataCaptacao: date('data_captacao', {mode:'string'}).defaultNow().notNull(),
   dataInicioPagamento: date('data_inicio_pagamento', {mode:'string'}).defaultNow().notNull(), //Data de Início do Pagamento
-  valorCaptacao: numeric('valor_captacao',{precision:10,scale:2,mode:'number'}).notNull(), // Valor da Captacao (R$) em CENTAVOS
+  valorCaptacao: numeric('valor_captacao',{mode:'number'}).notNull(), // Valor da Captacao (R$) em CENTAVOS
   qtdParcelas: integer('qtd_parcelas').notNull().default(1), // Número da Parcelas
   jurosAno: numeric('juros_ano',{precision:5,scale:2,mode:'number'}).notNull().default(0), // Taxa de Juros (% a.a.)
   carenciaMeses: integer('carencia_meses').notNull().default(0), // Carência (meses)
