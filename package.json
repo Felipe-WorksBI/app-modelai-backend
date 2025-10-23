@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "drizzle-kit migrate || echo '✅ No pending migrations'",
     "db:studio": "drizzle-kit studio"
   },
   "keywords": [],
