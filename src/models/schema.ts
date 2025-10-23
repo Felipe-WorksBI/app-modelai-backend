@@ -98,7 +98,7 @@ export const realEstateTypes = pgEnum('tipo', ['Terreno', 'Registro e IncorporaÃ
 
 export const realEstateDetails = pgTable('real_estate_details',{
   realEstateId: uuid('real_estate_id').primaryKey().defaultRandom(),
-  prjId: uuid('prj_id').notNull().references(() => projects.prjId),
+  prjId: uuid('prj_id').notNull().references(() => projects.prjId, {onDelete: 'cascade', onUpdate: 'cascade'}),
   empId: uuid('emp_id').notNull().references(() => properties.empId),
   tipoRealEstate: realEstateTypes('tipo_real_estate').notNull(), // Tipo de Custo
   dataCompra: date('data_compra', {mode:'string'}).defaultNow().notNull(), //Data de Compra do Terreno
@@ -114,11 +114,13 @@ export const InstallmentsClassification = pgEnum('tipo_parcela', ['Entrada', 'Pa
 
 export const realEstatePayments = pgTable('real_state_payments',{
   paymentId: serial('payment_id').primaryKey(),
-  realEstateId: uuid('real_estate_id').notNull().references(() => realEstateDetails.realEstateId),
-  prjId: uuid('prj_id').notNull().references(() => projects.prjId),
-  empId: uuid('emp_id').notNull().references(() => properties.empId),
+  // realEstateId: uuid('real_estate_id').notNull().references(() => realEstateDetails.realEstateId),
+  prjId: uuid('prj_id').notNull().references(() => projects.prjId, {onDelete: 'cascade', onUpdate: 'cascade'}),
+  empId: uuid('emp_id').notNull().references(() => properties.empId, {onDelete: 'cascade', onUpdate: 'cascade'}),
+  nomeRealEstate: text('nome_real_estate').notNull().default('Ativo 1'), // Nome do Ativo
+  tipoRealEstate: text('tipo_real_estate').notNull().default('Outros'), // Tipo do Ativo
   dataVencimento: date('data_vencimento', {mode:'string'}).defaultNow().notNull(), //Data de Vencimento
-  tipoParcela: InstallmentsClassification('tipo_parcela').notNull(), // Tempo de Obra (meses)
+  tipoParcela: text('tipo_parcela').notNull(), // Tempo de Obra (meses)
   numeroParcela: integer('numero_parcela').notNull().default(1), // NÃºmero da Parcela
   valorParcela: numeric('valor_parcela',{mode:'number'}).notNull(), // Valor da Parcela (R$) em CENTAVOS
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),

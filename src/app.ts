@@ -30,6 +30,14 @@ import { editAdmExpenses } from "./routes/edit-adm-expenses.js";
 import { deleteAdmExpensesById } from "./routes/delete-adm-expenses.js";
 import { editConstructionCostsById } from "./routes/edit-construction-costs.js";
 import { deleteConstructionCostsById } from "./routes/delete-construction-costs.js";
+import { createRealEstate } from "./routes/real-estate/create-real-estate.js";
+import { editRealEstateById } from "./routes/real-estate/edit-real-estate.js";
+import { deleteRealEstateById } from "./routes/real-estate/delete-real-estate.js";
+import { getAllRealEstate } from "./routes/real-estate/get-all-real-estate.js";
+import { getRealEstatePayments } from "./routes/real-estate-payments/read-re-payments.js";
+import { deleteRealEstatePaymentById } from "./routes/real-estate-payments/delete-re-payment.js";
+import { createRealEstatePayment } from "./routes/real-estate-payments/create-re-payments.js";
+import { editRealEstatePayment } from "./routes/real-estate-payments/update-re-payments.js";
 // import {fastifySwaggerUi} from "@fastify/swagger-ui";
 
 // export async function App(): Promise<FastifyInstance>{
@@ -103,6 +111,8 @@ app
     .register(deletePropertyById, { prefix: "/api/v1" })
     .register(getConstructionCosts, { prefix: "/api/v1" })
     .register(createConstructionCosts, { prefix: "/api/v1" })
+    .register(editConstructionCostsById, { prefix: "/api/v1" })
+    .register(deleteConstructionCostsById, { prefix: "/api/v1" })
     .register(createAdmExpenses, { prefix: "/api/v1" })
     .register(getAdmExpensesByScenario, { prefix: "/api/v1" })
     .register(deleteScenarioById, { prefix: "/api/v1" })
@@ -110,8 +120,15 @@ app
     .register(deleteUserByID, { prefix: "/api/v1" })
     .register(editAdmExpenses, { prefix: "/api/v1" })
     .register(deleteAdmExpensesById, { prefix: "/api/v1" })
-    .register(editConstructionCostsById, { prefix: "/api/v1" })
-    .register(deleteConstructionCostsById, { prefix: "/api/v1" })
+    .register(createRealEstate, { prefix: "/api/v1" })
+    .register(editRealEstateById, { prefix: "/api/v1" })
+    .register(deleteRealEstateById, { prefix: "/api/v1" })
+    .register(getAllRealEstate, { prefix: "/api/v1" })
+    // Real Estate Payments
+    .register(getRealEstatePayments, { prefix: "/api/v1" })
+    .register(deleteRealEstatePaymentById, { prefix: "/api/v1" })
+    .register(createRealEstatePayment, { prefix: "/api/v1" })
+    .register(editRealEstatePayment, { prefix: "/api/v1" })
 
 export {app};
 
