@@ -53,18 +53,16 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
             return reply.status(400).send({ message: 'Invalid credentials' });
         }
 
-        const { accessToken, refreshToken } = generateTokens({
+        const { accessToken, refreshToken, session } = generateTokens({
             sub: user.id,
             role: user.role,
         })
 
-        //Set cookies
-        // generateCookies(reply, 'accessToken',accessToken,'15m');
-        // generateCookies(reply, 'refreshToken',refreshToken,'7d');
         reply
             .setCookie('accessToken',accessToken,{...baseCookies, maxAge:15 * 60})
             .setCookie('refreshToken',refreshToken,{...baseCookies, maxAge:7 * 24 * 60 * 60})
-        //token: { accessToken, refreshToken }
+            .setCookie('session', session, {...baseCookies, maxAge:15 * 60})
+
         return reply.status(200).send({ user });
     });
     server.post('/sessions/logout', {
@@ -85,6 +83,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
         reply
             .clearCookie('accessToken', {...baseCookies, maxAge:0})
             .clearCookie('refreshToken', {...baseCookies, maxAge:0})
+            .clearCookie('session', {...baseCookies, maxAge:0});
         console.log('cookies removed');
         return reply.status(200).send({ message: 'Cookies cleared' });
     });
@@ -116,13 +115,14 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
             clearCookies(reply);
             return reply.status(401).send({ message: 'User not authenticated' });
         }
-        const { accessToken, refreshToken } = generateTokens({
+        const { accessToken, refreshToken, session } = generateTokens({
             sub: user.sub,
             role: user.role,
         })
         reply
             .setCookie('accessToken',accessToken,{...baseCookies, maxAge:15 * 60})
             .setCookie('refreshToken',refreshToken,{...baseCookies, maxAge:7 * 24 * 60 * 60})
+            .setCookie('session', session, {...baseCookies, maxAge:15 * 60})
             
         return reply.status(200).send({ message: 'Token refreshed successfully' });
     });

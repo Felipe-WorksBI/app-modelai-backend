@@ -27,7 +27,7 @@ export const baseCookies : CookieOptions= {
 export function generateTokens(
   payload: TokenPayload
 ) {
-    if (!process.env.JWT_SECRET || !process.env.JWT_REFRESH_SECRET) {
+    if (!process.env.JWT_SECRET || !process.env.JWT_REFRESH_SECRET || !process.env.JWT_PRIVATE_KEY_PEM) {
         throw new Error('JWT_SECRET or JWT_EXPIRES_IN is not defined')
     }
     if (!payload.sub || !payload.role) {
@@ -41,7 +41,12 @@ export function generateTokens(
     expiresIn: '7d',
   })
 
-  return { accessToken, refreshToken }
+  const session = jwt.sign(payload, process.env.JWT_PRIVATE_KEY_PEM , {
+    expiresIn: '15m',
+    algorithm: 'RS256'
+  })
+
+  return { accessToken, refreshToken, session }
 }
 
 export function generateCookies(
