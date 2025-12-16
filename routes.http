@@ -30,9 +30,12 @@ POST http://localhost:3333/api/v1/sessions
 Content-Type: application/json
 
 {
-    "email": "felipe@admin.com",
-    "password": "felipeadmin123"
+    "email": "felpe@user.com",
+    "password": "felipeuser123"
 }
 
 ###
 POST http://localhost:3333/api/v1/sessions/logout
+
+###
+GET http://localhost:3333/api/v1/pre-register

@@ -38,6 +38,18 @@ import { getRealEstatePayments } from "./routes/real-estate-payments/read-re-pay
 import { deleteRealEstatePaymentById } from "./routes/real-estate-payments/delete-re-payment.js";
 import { createRealEstatePayment } from "./routes/real-estate-payments/create-re-payments.js";
 import { editRealEstatePayment } from "./routes/real-estate-payments/update-re-payments.js";
+import { createPreRegister } from "./routes/preRegister/create-preRegister.js";
+import { updatePreRegister } from "./routes/preRegister/update-preRegister.js";
+import { readPreRegister } from "./routes/preRegister/read-preRegister.js";
+import { deletePreRegister } from "./routes/preRegister/delete-preRegister.js";
+import { createCompany } from "./routes/companies/create-company.js";
+import { readCompany } from "./routes/companies/read-company.js";
+import { updateCompany } from "./routes/companies/update-company.js";
+import { deleteCompany } from "./routes/companies/delete-company.js";
+import { createAcquisition } from "./routes/propertyAcquisitions/create-propAcquisition.js";
+import { updateAcquisition } from "./routes/propertyAcquisitions/update-propAcquisition.js";
+import { readAcquisitions } from "./routes/propertyAcquisitions/read-propAcquisition.js";
+import { deleteAcquisition } from "./routes/propertyAcquisitions/delete-propAcquisition.js";
 // import {fastifySwaggerUi} from "@fastify/swagger-ui";
 
 // export async function App(): Promise<FastifyInstance>{
@@ -129,7 +141,22 @@ app
     .register(deleteRealEstatePaymentById, { prefix: "/api/v1" })
     .register(createRealEstatePayment, { prefix: "/api/v1" })
     .register(editRealEstatePayment, { prefix: "/api/v1" })
-
+    // Companies
+    .register(createPreRegister, { prefix: "/api/v1" })
+    .register(readPreRegister, { prefix: "/api/v1" })
+    .register(updatePreRegister, { prefix: "/api/v1" })
+    .register(deletePreRegister, { prefix: "/api/v1" })
+    // Pre register
+    .register(createCompany, { prefix: "/api/v1" })
+    .register(readCompany, { prefix: "/api/v1" })
+    .register(updateCompany, { prefix: "/api/v1" })
+    .register(deleteCompany, { prefix: "/api/v1" })
+    // Property Acquisitions
+    .register(createAcquisition, { prefix: "/api/v1" })
+    .register(readAcquisitions, { prefix: "/api/v1" })
+    .register(updateAcquisition, { prefix: "/api/v1" })
+    .register(deleteAcquisition, { prefix: "/api/v1" })
+    
 export {app};
 
 

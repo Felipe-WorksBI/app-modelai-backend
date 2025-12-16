@@ -7,6 +7,7 @@ export const sameSiteType: 'none' | 'strict' = isProduction ? 'none' : 'strict'
 export type TokenPayload = {
     sub: string
     role: string
+    companyId:string
 }
 
 type CookieOptions = {
@@ -30,7 +31,7 @@ export function generateTokens(
     if (!process.env.JWT_SECRET || !process.env.JWT_REFRESH_SECRET || !process.env.JWT_PRIVATE_KEY_PEM) {
         throw new Error('JWT_SECRET or JWT_EXPIRES_IN is not defined')
     }
-    if (!payload.sub || !payload.role) {
+    if (!payload.sub || !payload.role || !payload.companyId) {
         throw new Error('Invalid token payload')
     }
   const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {

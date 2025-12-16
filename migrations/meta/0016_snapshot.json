@@ -1,0 +1,1499 @@
+{
+  "id": "820e9978-2d4c-4dfc-ac0d-1c7ff47f5329",
+  "prevId": "dc43fd97-e8e3-42a1-a93c-dd2b162bb843",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.administrative_expenses": {
+      "name": "administrative_expenses",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "prj_id": {
+          "name": "prj_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_inicio_custo": {
+          "name": "data_inicio_custo",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "meses_ativo": {
+          "name": "meses_ativo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "tipo_despesa": {
+          "name": "tipo_despesa",
+          "type": "tipo_despesa",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pct_valor": {
+          "name": "pct_valor",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "base_calulo": {
+          "name": "base_calulo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "administrative_expenses_prj_id_projects_project_id_fk": {
+          "name": "administrative_expenses_prj_id_projects_project_id_fk",
+          "tableFrom": "administrative_expenses",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "prj_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "administrative_expenses_emp_id_properties_emp_id_fk": {
+          "name": "administrative_expenses_emp_id_properties_emp_id_fk",
+          "tableFrom": "administrative_expenses",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "emp_id"
+          ],
+          "columnsTo": [
+            "emp_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "administrative_expenses_created_by_users_id_fk": {
+          "name": "administrative_expenses_created_by_users_id_fk",
+          "tableFrom": "administrative_expenses",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "administrative_expenses_updated_by_users_id_fk": {
+          "name": "administrative_expenses_updated_by_users_id_fk",
+          "tableFrom": "administrative_expenses",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.companies": {
+      "name": "companies",
+      "schema": "",
+      "columns": {
+        "company_id": {
+          "name": "company_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'active'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "companies_created_by_users_id_fk": {
+          "name": "companies_created_by_users_id_fk",
+          "tableFrom": "companies",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "companies_updated_by_users_id_fk": {
+          "name": "companies_updated_by_users_id_fk",
+          "tableFrom": "companies",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "companies_company_name_unique": {
+          "name": "companies_company_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "company_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pre_register": {
+      "name": "pre_register",
+      "schema": "",
+      "columns": {
+        "reg_id": {
+          "name": "reg_id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "applied_company": {
+          "name": "applied_company",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "typologies": {
+          "name": "typologies",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "pre_register_applied_company_idx": {
+          "name": "pre_register_applied_company_idx",
+          "columns": [
+            {
+              "expression": "applied_company",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gin",
+          "with": {}
+        },
+        "pre_register_typologies_idx": {
+          "name": "pre_register_typologies_idx",
+          "columns": [
+            {
+              "expression": "typologies",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gin",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pre_register_created_by_users_id_fk": {
+          "name": "pre_register_created_by_users_id_fk",
+          "tableFrom": "pre_register",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "pre_register_updated_by_users_id_fk": {
+          "name": "pre_register_updated_by_users_id_fk",
+          "tableFrom": "pre_register",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "pre_register_name_unique": {
+          "name": "pre_register_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.project_details": {
+      "name": "project_details",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "prj_id": {
+          "name": "prj_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prj_fase": {
+          "name": "prj_fase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Fase 1'"
+        },
+        "area_vendida": {
+          "name": "area_vendida",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "area_permuta": {
+          "name": "area_permuta",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor_m2": {
+          "name": "valor_m2",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_inicio": {
+          "name": "data_inicio",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "prazo_vendas": {
+          "name": "prazo_vendas",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pct_valorizacao": {
+          "name": "pct_valorizacao",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "pct_unidades_vista": {
+          "name": "pct_unidades_vista",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "pct_entrada": {
+          "name": "pct_entrada",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "pct_reforco": {
+          "name": "pct_reforco",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "qtd_parcelas": {
+          "name": "qtd_parcelas",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "qtd_baloes": {
+          "name": "qtd_baloes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "periodicidade_reforco": {
+          "name": "periodicidade_reforco",
+          "type": "periodo_reforco",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'anual'"
+        },
+        "pct_juros": {
+          "name": "pct_juros",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "project_details_prj_id_projects_project_id_fk": {
+          "name": "project_details_prj_id_projects_project_id_fk",
+          "tableFrom": "project_details",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "prj_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "project_details_emp_id_properties_emp_id_fk": {
+          "name": "project_details_emp_id_properties_emp_id_fk",
+          "tableFrom": "project_details",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "emp_id"
+          ],
+          "columnsTo": [
+            "emp_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "project_details_created_by_users_id_fk": {
+          "name": "project_details_created_by_users_id_fk",
+          "tableFrom": "project_details",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "project_details_updated_by_users_id_fk": {
+          "name": "project_details_updated_by_users_id_fk",
+          "tableFrom": "project_details",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.project_expenses": {
+      "name": "project_expenses",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "prj_id": {
+          "name": "prj_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_inicio_custo": {
+          "name": "data_inicio_custo",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "tempo_obra": {
+          "name": "tempo_obra",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "custo_m2": {
+          "name": "custo_m2",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "custo_total_projetado": {
+          "name": "custo_total_projetado",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "area_construida_total": {
+          "name": "area_construida_total",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reajuste_anual": {
+          "name": "reajuste_anual",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "project_expenses_prj_id_projects_project_id_fk": {
+          "name": "project_expenses_prj_id_projects_project_id_fk",
+          "tableFrom": "project_expenses",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "prj_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "project_expenses_emp_id_properties_emp_id_fk": {
+          "name": "project_expenses_emp_id_properties_emp_id_fk",
+          "tableFrom": "project_expenses",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "emp_id"
+          ],
+          "columnsTo": [
+            "emp_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "project_expenses_created_by_users_id_fk": {
+          "name": "project_expenses_created_by_users_id_fk",
+          "tableFrom": "project_expenses",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "project_expenses_updated_by_users_id_fk": {
+          "name": "project_expenses_updated_by_users_id_fk",
+          "tableFrom": "project_expenses",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.projects": {
+      "name": "projects",
+      "schema": "",
+      "columns": {
+        "project_id": {
+          "name": "project_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "project_name": {
+          "name": "project_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "projects_created_by_users_id_fk": {
+          "name": "projects_created_by_users_id_fk",
+          "tableFrom": "projects",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "projects_updated_by_users_id_fk": {
+          "name": "projects_updated_by_users_id_fk",
+          "tableFrom": "projects",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "projects_project_name_unique": {
+          "name": "projects_project_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "project_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.properties": {
+      "name": "properties",
+      "schema": "",
+      "columns": {
+        "emp_id": {
+          "name": "emp_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "prj_id": {
+          "name": "prj_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emp_name": {
+          "name": "emp_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "properties_prj_id_projects_project_id_fk": {
+          "name": "properties_prj_id_projects_project_id_fk",
+          "tableFrom": "properties",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "prj_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "properties_created_by_users_id_fk": {
+          "name": "properties_created_by_users_id_fk",
+          "tableFrom": "properties",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "properties_updated_by_users_id_fk": {
+          "name": "properties_updated_by_users_id_fk",
+          "tableFrom": "properties",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "properties_emp_name_unique": {
+          "name": "properties_emp_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "emp_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.property_acquisitions": {
+      "name": "property_acquisitions",
+      "schema": "",
+      "columns": {
+        "property_id": {
+          "name": "property_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "prj_id": {
+          "name": "prj_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome_empresa": {
+          "name": "nome_empresa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_captacao": {
+          "name": "data_captacao",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "data_inicio_pagamento": {
+          "name": "data_inicio_pagamento",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "valor_captacao": {
+          "name": "valor_captacao",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "qtd_parcelas": {
+          "name": "qtd_parcelas",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "juros_ano": {
+          "name": "juros_ano",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "property_acquisitions_prj_id_projects_project_id_fk": {
+          "name": "property_acquisitions_prj_id_projects_project_id_fk",
+          "tableFrom": "property_acquisitions",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "prj_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "property_acquisitions_emp_id_properties_emp_id_fk": {
+          "name": "property_acquisitions_emp_id_properties_emp_id_fk",
+          "tableFrom": "property_acquisitions",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "emp_id"
+          ],
+          "columnsTo": [
+            "emp_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "property_acquisitions_created_by_users_id_fk": {
+          "name": "property_acquisitions_created_by_users_id_fk",
+          "tableFrom": "property_acquisitions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "property_acquisitions_updated_by_users_id_fk": {
+          "name": "property_acquisitions_updated_by_users_id_fk",
+          "tableFrom": "property_acquisitions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.real_estate_details": {
+      "name": "real_estate_details",
+      "schema": "",
+      "columns": {
+        "real_estate_id": {
+          "name": "real_estate_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "prj_id": {
+          "name": "prj_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_real_estate": {
+          "name": "tipo_real_estate",
+          "type": "tipo",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_compra": {
+          "name": "data_compra",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "valor": {
+          "name": "valor",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_valor": {
+          "name": "tipo_valor",
+          "type": "tipo_valor",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "real_estate_details_prj_id_projects_project_id_fk": {
+          "name": "real_estate_details_prj_id_projects_project_id_fk",
+          "tableFrom": "real_estate_details",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "prj_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "real_estate_details_emp_id_properties_emp_id_fk": {
+          "name": "real_estate_details_emp_id_properties_emp_id_fk",
+          "tableFrom": "real_estate_details",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "emp_id"
+          ],
+          "columnsTo": [
+            "emp_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "real_estate_details_created_by_users_id_fk": {
+          "name": "real_estate_details_created_by_users_id_fk",
+          "tableFrom": "real_estate_details",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "real_estate_details_updated_by_users_id_fk": {
+          "name": "real_estate_details_updated_by_users_id_fk",
+          "tableFrom": "real_estate_details",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.real_state_payments": {
+      "name": "real_state_payments",
+      "schema": "",
+      "columns": {
+        "payment_id": {
+          "name": "payment_id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "prj_id": {
+          "name": "prj_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome_real_estate": {
+          "name": "nome_real_estate",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Ativo 1'"
+        },
+        "tipo_real_estate": {
+          "name": "tipo_real_estate",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Outros'"
+        },
+        "data_vencimento": {
+          "name": "data_vencimento",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "tipo_parcela": {
+          "name": "tipo_parcela",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numero_parcela": {
+          "name": "numero_parcela",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "valor_parcela": {
+          "name": "valor_parcela",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "real_state_payments_prj_id_projects_project_id_fk": {
+          "name": "real_state_payments_prj_id_projects_project_id_fk",
+          "tableFrom": "real_state_payments",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "prj_id"
+          ],
+          "columnsTo": [
+            "project_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "real_state_payments_emp_id_properties_emp_id_fk": {
+          "name": "real_state_payments_emp_id_properties_emp_id_fk",
+          "tableFrom": "real_state_payments",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "emp_id"
+          ],
+          "columnsTo": [
+            "emp_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "real_state_payments_created_by_users_id_fk": {
+          "name": "real_state_payments_created_by_users_id_fk",
+          "tableFrom": "real_state_payments",
+          "tableTo": "users",
+          "columnsFrom": [
+            "created_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "real_state_payments_updated_by_users_id_fk": {
+          "name": "real_state_payments_updated_by_users_id_fk",
+          "tableFrom": "real_state_payments",
+          "tableTo": "users",
+          "columnsFrom": [
+            "updated_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'active'"
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'user'"
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.tipo_parcela": {
+      "name": "tipo_parcela",
+      "schema": "public",
+      "values": [
+        "Entrada",
+        "Parcela",
+        "Pagamento Final",
+        "Intermediário"
+      ]
+    },
+    "public.tipo_despesa": {
+      "name": "tipo_despesa",
+      "schema": "public",
+      "values": [
+        "Marketing",
+        "Comissão de vendas",
+        "Taxa de Gestão",
+        "Impostos"
+      ]
+    },
+    "public.tipo_valor": {
+      "name": "tipo_valor",
+      "schema": "public",
+      "values": [
+        "entrada",
+        "licença",
+        "parcela",
+        "escritura"
+      ]
+    },
+    "public.tipo": {
+      "name": "tipo",
+      "schema": "public",
+      "values": [
+        "Terreno",
+        "Registro e Incorporação",
+        "Outros"
+      ]
+    },
+    "public.periodo_reforco": {
+      "name": "periodo_reforco",
+      "schema": "public",
+      "values": [
+        "trimestral",
+        "semestral",
+        "anual"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

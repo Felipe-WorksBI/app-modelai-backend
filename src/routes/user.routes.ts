@@ -6,8 +6,8 @@ import { TParams } from "../types/zod.types.js";
 import { checkRequestJWT } from "./hooks/check-request-jwt.js";
 import { checkUserRole } from "./hooks/check-user-role.js";
 import { db } from "../database/client.js";
-import { users } from "../models/schema.js";
-import { desc } from "drizzle-orm";
+import { companies, users } from "../models/schema.js";
+import { desc, eq } from "drizzle-orm";
 
 export const userRoutes: FastifyPluginAsyncZod = async (app) => {
   //Route to get all users
@@ -27,6 +27,7 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
           email: z.email(),
           status: z.string(),
           role: z.string(),
+          companyId: z.string().nullable(),
           companyName: z.string().nullable(),
           createdAt: z.date(),
           updatedAt: z.date(),
@@ -43,13 +44,15 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
               email: users.email,
               status: users.status,
               role: users.role,
-              companyName: users.companyName || 'N/A',
+              companyId: companies.companyId,
+              companyName: companies.companyName,
               createdAt: users.createdAt,
               updatedAt: users.updatedAt,
           })
           .from(users)
+          .leftJoin(companies, eq(users.companyId, companies.companyId))
           .orderBy(desc(users.updatedAt));
-          
+
       return reply.status(200).send({ users: result });
   });
 
@@ -68,7 +71,7 @@ export const userRoutes: FastifyPluginAsyncZod = async (app) => {
         email: z.email(),
         password: z.string().min(6),
         role: z.enum(['user', 'admin']),
-        companyName: z.string(),
+        companyId: z.string().optional(),
         status: z.enum(['active', 'inactive'])
       }),
       response:{

@@ -24,6 +24,7 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
                     name: z.string(),
                     email: z.email(),
                     role: z.string(),
+                    companyId: z.string().nullable(),
                     createdAt: z.date(),
                     updatedAt: z.date(),
                 })
@@ -37,7 +38,16 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
 
         // Implement login logic here
         const result = await db
-            .select()
+            .select({
+                id: users.id,
+                name: users.name,
+                email: users.email,
+                password: users.password,
+                role: users.role,
+                companyId: users.companyId,
+                createdAt: users.createdAt,
+                updatedAt: users.updatedAt,
+            })
             .from(users)
             .where(eq(users.email, email));
 
@@ -53,9 +63,14 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
             return reply.status(400).send({ message: 'Invalid credentials' });
         }
 
+        if(!user.companyId){
+            return reply.status(400).send({ message: 'User without company assigned' });
+        }
+
         const { accessToken, refreshToken, session } = generateTokens({
             sub: user.id,
             role: user.role,
+            companyId: user.companyId
         })
 
         reply
@@ -84,7 +99,6 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
             .clearCookie('accessToken', {...baseCookies, maxAge:0})
             .clearCookie('refreshToken', {...baseCookies, maxAge:0})
             .clearCookie('session', {...baseCookies, maxAge:0});
-        console.log('cookies removed');
         return reply.status(200).send({ message: 'Cookies cleared' });
     });
     server.post('/sessions/refresh', {
@@ -94,18 +108,8 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
         schema: {
             tags: ['auth'],
             summary: 'Refresh user token with refreshToken',
-            // body: z.object({
-            //     email: z.email(),
-            //     password: z.string(),
-            // }),
             response:{
                 200:z.object({message:z.string()}).describe('Token refreshed successfully'),
-                // 200: z.object({
-                //     token: z.object({
-                //         accessToken: z.string(),
-                //         refreshToken: z.string(),
-                //     }),
-                // }),
                 401: z.object({ message: z.string() })
             }
         },
@@ -115,9 +119,12 @@ export const authRoutes: FastifyPluginAsyncZod = async (server) => {
             clearCookies(reply);
             return reply.status(401).send({ message: 'User not authenticated' });
         }
+
+
         const { accessToken, refreshToken, session } = generateTokens({
             sub: user.sub,
             role: user.role,
+            companyId: user.companyId
         })
         reply
             .setCookie('accessToken',accessToken,{...baseCookies, maxAge:15 * 60})

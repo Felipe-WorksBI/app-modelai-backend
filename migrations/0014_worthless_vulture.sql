@@ -1,0 +1,1 @@
+ALTER TABLE "pre_register" ADD CONSTRAINT "pre_register_name_unique" UNIQUE("name");

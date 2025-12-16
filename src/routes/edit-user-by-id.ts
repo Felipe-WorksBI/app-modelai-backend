@@ -28,7 +28,7 @@ export const editUserByID: FastifyPluginAsyncZod = async (app) => {
         email: z.email(),
         password: z.string().min(6),
         role: z.enum(['user', 'admin']),
-        companyName: z.string(),
+        companyId: z.string().optional(),
         status: z.enum(['active', 'inactive'])
         }),
       response:{

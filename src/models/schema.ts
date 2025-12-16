@@ -1,18 +1,53 @@
-import { InferInsertModel } from 'drizzle-orm'
-import { 
-    pgTable,
-    uuid,
-    text,
-    timestamp,
-    pgEnum,
-    serial,
-    integer,
-    date,
-    numeric
-} from 'drizzle-orm/pg-core'
+import {
+  pgTable,
+  uuid,
+  text,
+  timestamp,
+  pgEnum,
+  serial,
+  integer,
+  date,
+  numeric,
+  jsonb,
+  index
+} from 'drizzle-orm/pg-core';
 
-// const STATUS = pgEnum('status', ['active', 'inactive', 'pending'])
-type Test = InferInsertModel<typeof users>
+
+// Tabela utilizada para o pré-cadastro dos empreendimentos
+export const preRegister = pgTable('pre_register', {
+  regId: serial('reg_id').primaryKey(),
+  name: text('name').notNull().unique(), // Nome do empreendimento
+  appliedCompany: jsonb('applied_company') // Empresa que está aplicando o cadastro
+    .$type<string[]>()
+    .notNull(), 
+  typologies: jsonb('typologies') // Tipologias do empreendimento
+    .$type<{
+      type: string;
+      areaM2: number;
+      quantity: number;
+    }[]>()
+    .notNull(), 
+  createdAt: timestamp('created_at',{withTimezone:true}).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at',{withTimezone:true}).defaultNow().notNull(),
+  createdBy: uuid('created_by').notNull().references(() => users.id, {onDelete: 'cascade', onUpdate: 'cascade'}),
+  updatedBy: uuid('updated_by').notNull().references(() => users.id, {onDelete: 'cascade', onUpdate: 'cascade'}),
+},
+  (table) => [
+    index('pre_register_applied_company_idx').using('gin', table.appliedCompany),
+    index('pre_register_typologies_idx').using('gin', table.typologies),
+  ]
+)
+
+export const companies = pgTable('companies', {
+  companyId: uuid('company_id').primaryKey().defaultRandom(),
+  companyName: text('company_name').notNull().unique(),
+  status: text('status').notNull().default('active'),
+  createdAt: timestamp('created_at',{withTimezone:true}).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at',{withTimezone:true}).defaultNow().notNull(),
+  createdBy: uuid('created_by').notNull().references(() => users.id, {onDelete: 'cascade', onUpdate: 'cascade'}),
+  updatedBy: uuid('updated_by').notNull().references(() => users.id, {onDelete: 'cascade', onUpdate: 'cascade'}),
+})
+
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -23,7 +58,7 @@ export const users = pgTable('users', {
   updatedAt: timestamp('updated_at',{withTimezone:true}).defaultNow().notNull(),
   status: text('status').notNull().default('active'),
   role: text('role').notNull().default('user'),
-  companyName: text('company_name'),
+  companyId: uuid('company_id'),
 })
 
 //Scenarios
@@ -73,8 +108,6 @@ export const projectDetails = pgTable('project_details',{
   createdBy: uuid('created_by').notNull().references(() => users.id),
   updatedBy: uuid('updated_by').notNull().references(() => users.id),
 })
-
-type ProjectDetails = InferInsertModel<typeof projectDetails>;
 
 // Custos de obra
 export const projectExpenses = pgTable('project_expenses',{
@@ -150,16 +183,17 @@ export const propertyAcquisitions = pgTable('property_acquisitions',{
   propertyId: uuid('property_id').primaryKey().defaultRandom(),
   prjId: uuid('prj_id').notNull().references(() => projects.prjId),
   empId: uuid('emp_id').notNull().references(() => properties.empId),
-  numeroInstituicao: integer('numero_instituicao').notNull().default(1), // Número da Instituição
+  // numeroInstituicao: integer('numero_instituicao').notNull().default(1), // Número da Instituição
   nomeEmpresa: text('nome_empresa').notNull(), // Nome do Player/Instituição
   dataCaptacao: date('data_captacao', {mode:'string'}).defaultNow().notNull(),
   dataInicioPagamento: date('data_inicio_pagamento', {mode:'string'}).defaultNow().notNull(), //Data de Início do Pagamento
   valorCaptacao: numeric('valor_captacao',{mode:'number'}).notNull(), // Valor da Captacao (R$) em CENTAVOS
   qtdParcelas: integer('qtd_parcelas').notNull().default(1), // Número da Parcelas
   jurosAno: numeric('juros_ano',{precision:5,scale:2,mode:'number'}).notNull().default(0), // Taxa de Juros (% a.a.)
-  carenciaMeses: integer('carencia_meses').notNull().default(0), // Carência (meses)
+  // carenciaMeses: integer('carencia_meses').notNull().default(0), // Carência (meses)
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   createdBy: uuid('created_by').notNull().references(() => users.id),
   updatedBy: uuid('updated_by').notNull().references(() => users.id),
 })
+
